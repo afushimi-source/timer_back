@@ -8,5 +8,5 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   has_one :timer, dependent: :destroy
-  has_many :study_logs, dependent: :destroy
+  has_many :records, dependent: :destroy
 end
