@@ -1,24 +1,15 @@
 # timer_back
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## setup
+```
+docker-compose build
+docker-compose up -d db
+docker-compose run web bundle exec rails db:create
+docker-compose run web bundle exec ridgepole -a -E development -c config/database.yml -f db/Schemafile
+```
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## start server
+```
+docker-compose up
+# server will run at localhost:3001
+```
