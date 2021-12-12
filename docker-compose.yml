@@ -9,21 +9,46 @@ services:
       - postgres-data:/var/lib/postgresql/data
     ports:
       - "35432:5432"
+
   api:
     build:
       context: .
-    command: /bin/sh -c "rm -f /app/tmp/pids/server.pid && bundle exec rails s -p 3001 -b '0.0.0.0'"
-    image: rails:dev
+    command: bundle exec puma -C config/puma.rb
+    # command: /bin/sh -c "rm -f /app/tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - .:/app
       - ./vendor/bundle:/app/vendor/bundle
+      - /var/tmp
+      - tmp-data:/app/tmp
+      - sockets:/app/tmp/sockets
+      - public-data:/app/public
+      - log-data:/app/log
     environment:
       TZ: Asia/Tokyo
-      RAILS_ENV: development
+      # RAILS_ENV: development
+      RAILS_ENV: production
     ports:
-      - 3001:3001
+      - 3000:3000
     depends_on:
       - db
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
+    ports:
+      - '80:80'
+    volumes:
+      - sockets:/app/tmp/sockets
+      - public-data:/app/public
+      - tmp-data:/app/tmp
+    depends_on:
+      - api
+
 volumes:
   postgres-data:
     driver: local
+  sockets:
+  public-data:
+  tmp-data:
+  log-data:
