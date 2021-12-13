@@ -12,5 +12,5 @@ RUN apt-get update && \
 # ADD ./nginx/default.conf /etc/nginx/conf.d/default.conf
 ADD custom.conf /etc/nginx/conf.d
 
-
 CMD /usr/sbin/nginx -g 'daemon off;'
+EXPOSE 80
