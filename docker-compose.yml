@@ -27,6 +27,7 @@ services:
       TZ: Asia/Tokyo
       # RAILS_ENV: development
       RAILS_ENV: production
+
     ports:
       - 3000:3000
     depends_on:
