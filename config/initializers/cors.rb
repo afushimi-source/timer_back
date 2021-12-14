@@ -7,7 +7,11 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
+    if Rails.env.production?
+      origins ENV['FRONT_APP_URL']
+    else
       origins 'http://localhost:3000'
+    end
 
       resource '*',
           headers: :any,
@@ -15,14 +19,4 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
           methods: [:get, :post, :put, :patch, :delete, :options, :head]
           # credentials: true
   end
-
-  #本番環境用のオリジン設定
-  # allow do
-  #     origins 'https:<自身が設定するアプリのURL>'
-
-  #     resource '*',
-  #         headers: :any,
-  #         methods: [:get, :post, :put, :patch, :delete, :options, :head],
-  #         credentials: true
-  # end
 end

@@ -11,7 +11,6 @@ COPY . /app
 
 RUN apt-get update -qq && apt-get install -y build-essential nodejs libpq-dev postgresql-client curl
 RUN gem update bundler && bundle install
-RUN chmod 777 /app
 
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
@@ -19,5 +18,7 @@ ENTRYPOINT ["entrypoint.sh"]
 
 VOLUME /app/public
 VOLUME /app/tmp
+VOLUME /var/cache/nginx
+VOLUME /var/run
 
 CMD bash -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
