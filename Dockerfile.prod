@@ -20,5 +20,6 @@ VOLUME /app/public
 VOLUME /app/tmp
 VOLUME /var/cache/nginx
 VOLUME /var/run
+VOLUME /tmp
 
 CMD bash -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
