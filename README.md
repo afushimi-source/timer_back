@@ -11,5 +11,5 @@ docker-compose run web bundle exec ridgepole -a -E development -c config/databas
 ## start server
 ```
 docker-compose up
-# server will run at localhost:3001
+# server will run at localhost:80
 ```
